@@ -1,6 +1,6 @@
-#The Plan for the hackethon
+# The Plan for the hackethon
 
-##Getting Started
+## Getting Started
 
 ```
 npm install
@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-###Step 1 configuration
+### Step 1 configuration
 
 Configuration
 
@@ -33,7 +33,7 @@ package.json should look like this
 
 npm start will trigger both server and react native app
 
-###Step 2 create a github
+### Step 2 create a github
 
 Send invites and setup github repo
 
