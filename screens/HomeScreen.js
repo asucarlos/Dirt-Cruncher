@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -13,10 +13,11 @@ import {
 import { MonoText } from "../components/StyledText";
 
 //components
-import DirtCard from "../components/Card";
+import DirtCard from "../components/DirtCard";
 
-const state = {
-  1: {
+const state = [
+  {
+    id: 1,
     company: "Steel Iron Works",
     soil_type: "industrial grade",
     quote: 45000,
@@ -24,8 +25,8 @@ const state = {
     pick_up_poin: "1250 Dundas East",
     phone: "416 569 3279"
   },
-
-  2: {
+  {
+    id: 2,
     company: "Solomn Architects",
     soil_type: "Clay",
     quote: 5000,
@@ -33,30 +34,30 @@ const state = {
     pick_up_poin: "761 Bloor Street West",
     phone: "905 778 3212"
   }
-};
+];
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [dirtList, setDirtList] = useState({});
+  const [dirtList, setDirtList] = useState(state);
 
-  getList = () => {
-    fetch("http://127.0.0.1/8/8080/quotes", {
-      method: "GET"
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        setDirtList(data);
-        console.log("Event list from db", data);
-      })
-      .catch(err => console.log("MyError:", err));
-  };
-  getList();
+  // getList = () => {
+  //   fetch("http://localhost:8080/quotes")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       setDirtList(data);
+  //       console.log("Event list from db", data);
+  //     })
+  //     .catch(err => console.log("MyError:", err));
+  // };
+  // useEffect(() => {
+  //   getList();
+  // }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.welcomeContainer}></View>
         <View>
-          <DirtCard />
+          <DirtCard {...state} />
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
