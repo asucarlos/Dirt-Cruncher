@@ -39,19 +39,19 @@ export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [dirtList, setDirtList] = useState(state);
 
-  // getList = () => {
-  //   fetch("http://localhost:8080/quotes")
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //       setDirtList(data);
-  //       console.log("Event list from db", data);
-  //     })
-  //     .catch(err => console.log("MyError:", err));
-  // };
-  // useEffect(() => {
-  //   getList();
-  // }, []);
+  getList = () => {
+    fetch("http://192.168.0.108:8080/quotes")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setDirtList(data);
+        console.log("Event list from db", data);
+      })
+      .catch(err => console.log("MyError:", err));
+  };
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
