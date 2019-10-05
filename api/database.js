@@ -5,7 +5,7 @@ module.exports = [
     soil_type: "industrial grade",
     quote: 45000,
     quantity: 100,
-    pick_up_poin: "1250 Dundas East",
+    pick_up_point: "1250 Dundas East",
     phone: "416 569 3279"
   },
   {
@@ -14,7 +14,16 @@ module.exports = [
     soil_type: "Clay",
     quote: 5000,
     quantity: 10,
-    pick_up_poin: "761 Bloor Street West",
+    pick_up_point: "761 Bloor Street West",
+    phone: "905 778 3212"
+  },
+  {
+    id: 3,
+    company: "Solomn Architects",
+    soil_type: "Clay",
+    quote: 5000,
+    quantity: 10,
+    pick_up_point: "761 Bloor Street West",
     phone: "905 778 3212"
   }
 ];
