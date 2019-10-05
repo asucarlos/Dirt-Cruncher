@@ -9,41 +9,20 @@ import {
   View,
   Text
 } from "react-native";
-
+import { Container, Content } from "native-base";
 import { MonoText } from "../components/StyledText";
 
 //components
 import DirtCard from "../components/DirtCard";
 
-const state = [
-  {
-    id: 1,
-    company: "Steel Iron Works",
-    soil_type: "industrial grade",
-    quote: 45000,
-    quantity: 100,
-    pick_up_poin: "1250 Dundas East",
-    phone: "416 569 3279"
-  },
-  {
-    id: 2,
-    company: "Solomn Architects",
-    soil_type: "Clay",
-    quote: 5000,
-    quantity: 10,
-    pick_up_poin: "761 Bloor Street West",
-    phone: "905 778 3212"
-  }
-];
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [dirtList, setDirtList] = useState(state);
+  const [dirtList, setDirtList] = useState(null);
 
   getList = () => {
     fetch("http://192.168.0.108:8080/quotes")
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setDirtList(data);
         console.log("Event list from db", data);
       })
@@ -52,12 +31,16 @@ export default function HomeScreen() {
   useEffect(() => {
     getList();
   }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}></View>
         <View>
-          <DirtCard {...state} />
+          <Container>
+            <Content>
+              {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
+            </Content>
+          </Container>
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
@@ -91,7 +74,7 @@ export default function HomeScreen() {
 }
 
 HomeScreen.navigationOptions = {
-  header: null
+  title: "Home"
 };
 
 function DevelopmentModeNotice() {
