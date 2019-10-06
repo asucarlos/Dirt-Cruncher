@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -9,54 +9,38 @@ import {
   View,
   Text
 } from "react-native";
-
+import { Container, Content } from "native-base";
 import { MonoText } from "../components/StyledText";
 
 //components
-import DirtCard from "../components/Card";
+import DirtCard from "../components/DirtCard";
 
-const state = {
-  1: {
-    company: "Steel Iron Works",
-    soil_type: "industrial grade",
-    quote: 45000,
-    quantity: 100,
-    pick_up_poin: "1250 Dundas East",
-    phone: "416 569 3279"
-  },
-
-  2: {
-    company: "Solomn Architects",
-    soil_type: "Clay",
-    quote: 5000,
-    quantity: 10,
-    pick_up_poin: "761 Bloor Street West",
-    phone: "905 778 3212"
-  }
-};
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [dirtList, setDirtList] = useState({});
+  const [dirtList, setDirtList] = useState(null);
 
   getList = () => {
-    fetch("http://127.0.0.1/8/8080/quotes", {
-      method: "GET"
-    })
+    fetch("http://192.168.0.108:8080/quotes")
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setDirtList(data);
         console.log("Event list from db", data);
       })
       .catch(err => console.log("MyError:", err));
   };
-  getList();
+  useEffect(() => {
+    getList();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}></View>
         <View>
-          <DirtCard />
+          <Container>
+            <Content>
+              {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
+            </Content>
+          </Container>
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
@@ -90,7 +74,7 @@ export default function HomeScreen() {
 }
 
 HomeScreen.navigationOptions = {
-  header: null
+  title: "Home"
 };
 
 function DevelopmentModeNotice() {
