@@ -15,7 +15,7 @@ import {
   Right
 } from "native-base";
 
-export default DirtCard = ({ data }) => {
+export default DirtCard = ({ data, navigate }) => {
   console.log("dirt card", data);
   const iconSize = 60;
   return (
@@ -42,7 +42,15 @@ export default DirtCard = ({ data }) => {
       </CardItem>
       <CardItem>
         <Body style={styles.buyButtonContainer}>
-          <Button style={styles.buyButton}>
+          <Button
+            style={styles.buyButton}
+            onPress={() => {
+              navigate("Details", {
+                id: data.id,
+                params: "something"
+              });
+            }}
+          >
             <Text style={styles.buyButtonText}>Buy</Text>
           </Button>
         </Body>
