@@ -9,7 +9,7 @@ import {
   View,
   Text
 } from "react-native";
-import { Container, Content } from "native-base";
+import { Container, Content, Button } from "native-base";
 import { MonoText } from "../components/StyledText";
 
 //components
@@ -32,6 +32,7 @@ export default function HomeScreen() {
     getList();
   }, []);
 
+  // const { navigate } = this.props.navigation;
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -41,6 +42,7 @@ export default function HomeScreen() {
               {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
             </Content>
           </Container>
+          <Button title="Something route" onPress={() => console.log(this.props)} />
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
@@ -61,14 +63,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-        </View>
-      </View>
     </View>
   );
 }
