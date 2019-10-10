@@ -40,7 +40,8 @@ export default function HomeScreen() {
         <View>
           <Container>
             <Content>
-              {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
+              {dirtList &&
+                dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
             </Content>
           </Container>
           {console.log(this.props)}
