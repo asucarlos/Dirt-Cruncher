@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Container, Content, Button } from "native-base";
 import { MonoText } from "../components/StyledText";
+import { useNavigation } from "react-navigation-hooks";
 
 //components
 import DirtCard from "../components/DirtCard";
@@ -18,6 +19,7 @@ import DirtCard from "../components/DirtCard";
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [dirtList, setDirtList] = useState(null);
+  const { navigate } = useNavigation();
 
   getList = () => {
     fetch("http://192.168.0.108:8080/quotes")
@@ -32,7 +34,6 @@ export default function HomeScreen() {
     getList();
   }, []);
 
-  // const { navigate } = this.props.navigation;
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -42,7 +43,8 @@ export default function HomeScreen() {
               {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
             </Content>
           </Container>
-          <Button title="Something route" onPress={() => console.log(this.props)} />
+          {console.log(this.props)}
+          <Button title="Details" onPress={() => navigate("Details")} />
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
