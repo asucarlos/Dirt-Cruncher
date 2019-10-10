@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const port = 8000;
+const port = 8080;
 const database = require("./database.js");
 
 //helpers
