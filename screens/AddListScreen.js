@@ -68,11 +68,13 @@ class AddListScreen extends Component {
         </Modal>
 
         <Button
+          round
           onPress={() => {
             this.setModalVisible(true);
           }}
+          style={styles.addListButton}
         >
-          <Text>Show Modal</Text>
+          <AntDesign name="plus" size={this.state.iconSize} style={styles.iconInButton} />
         </Button>
       </View>
     );
@@ -85,6 +87,17 @@ const styles = StyleSheet.create({
     width: 40,
     backgroundColor: "transparent"
   },
-  formHeader: {}
+  formHeader: {
+    fontSize: 20
+  },
+  addListButton: {
+    height: 60,
+    width: 60,
+    position: "absolute",
+    bottom: 20,
+    right: 10,
+    borderRadius: 50,
+    justifyContent: "center"
+  }
 });
 export default AddListScreen;

@@ -45,10 +45,6 @@ export default function HomeScreen() {
                 dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
             </Content>
           </Container>
-          <Button title="Details" onPress={() => navigate("Details")} />
-        </View>
-        <View>
-          <AddListScreen />
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
@@ -69,6 +65,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <AddListScreen />
     </View>
   );
 }
