@@ -18,6 +18,7 @@ import {
 export default DirtCard = ({ data, navigate }) => {
   console.log("dirt card", data);
   const iconSize = 60;
+
   return (
     <Card>
       <CardItem cardBody>

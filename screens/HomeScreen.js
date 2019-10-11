@@ -15,6 +15,7 @@ import { useNavigation } from "react-navigation-hooks";
 
 //components
 import DirtCard from "../components/DirtCard";
+import AddListScreen from "./AddListScreen";
 
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -40,11 +41,14 @@ export default function HomeScreen() {
         <View>
           <Container>
             <Content>
-              {dirtList && dirtList.map(data => <DirtCard data={data} key={data.id} />)}
+              {dirtList &&
+                dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
             </Content>
           </Container>
-          {console.log(this.props)}
           <Button title="Details" onPress={() => navigate("Details")} />
+        </View>
+        <View>
+          <AddListScreen />
         </View>
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
