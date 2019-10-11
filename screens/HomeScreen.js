@@ -36,21 +36,13 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View>
-          <Container>
-            <Content>
-              {dirtList &&
-                dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
-            </Content>
-          </Container>
-          <Button title="Details" onPress={() => navigate("Details")} />
-        </View>
-        <View>
-          <AddListScreen />
-        </View>
-        <View style={styles.getStartedContainer}>
+    <View>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <Content>
+          {dirtList &&
+            dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
+        </Content>
+        {/* <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
           <Text style={styles.getStartedText}>Get started by opening</Text>
 
@@ -67,8 +59,9 @@ export default function HomeScreen() {
           <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
+      <AddListScreen />
     </View>
   );
 }
