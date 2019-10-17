@@ -35,6 +35,17 @@ export default function HomeScreen() {
     getList();
   }, []);
 
+  submitHandler = () => {
+    fetch("http://192.168.0.108:8080/quote", {
+      method: "POST",
+      body: JSON.stringify(newList),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => console.log(err));
+  };
   return (
     <View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -61,7 +72,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View> */}
       </ScrollView>
-      <AddListScreen />
+      <AddListScreen submitHandler={submitHandler} />
     </View>
   );
 }
