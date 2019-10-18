@@ -21,6 +21,7 @@
     "expo-asset": "^6.0.0",
     "expo-constants": "6.0.0",
     "expo-font": "~6.0.0",
+    "expo-sqlite": "^6.0.0",
     "expo-web-browser": "6.0.0",
     "express": "^4.17.1",
     "native-base": "^2.13.8",

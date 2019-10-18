@@ -12,14 +12,18 @@ import {
 import { Container, Content, Button } from "native-base";
 import { MonoText } from "../components/StyledText";
 import { useNavigation } from "react-navigation-hooks";
+import { SQLite } from "expo-sqlite";
 
 //components
 import DirtCard from "../components/DirtCard";
 import AddListScreen from "./AddListScreen";
 
+const db = SQLite.openDatabase("db.db");
+
 export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [dirtList, setDirtList] = useState(null);
+  const [lists, setLists] = useState(null);
   const { navigate } = useNavigation();
 
   getList = () => {
@@ -33,19 +37,40 @@ export default function HomeScreen() {
   };
   useEffect(() => {
     getList();
+    db.transaction(tx => {
+      tx.executeSql(
+        "create table if not exists items (id integer primary key not null, done int, company text, soil_type text, quote integer, quantity integer, pick_up_point text, phone integer);"
+      );
+    });
   }, []);
 
-  submitHandler = () => {
-    fetch("http://192.168.0.108:8080/quote", {
-      method: "POST",
-      body: JSON.stringify(newList),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => console.log(err));
+  const inputHandler = enteredText => {
+    setLists(enteredText);
+    console.log(lists);
   };
+
+  const addListHandler = () => {
+    console.log(lists);
+  };
+
+  const add = text => {
+    // // is text empty?
+    // if (text === null || text === "") {
+    //   return false;
+    // }
+
+    db.transaction(
+      tx => {
+        tx.executeSql("insert into items (value) values (0, ?)", [text]);
+        tx.executeSql("select * from items", [], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
+      },
+      null,
+      this.update
+    );
+  };
+
   return (
     <View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -53,26 +78,8 @@ export default function HomeScreen() {
           {dirtList &&
             dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
         </Content>
-        {/* <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
-        </View> */}
       </ScrollView>
-      <AddListScreen submitHandler={submitHandler} />
+      <AddListScreen addListHandler={addListHandler} inputHandler={inputHandler} />
     </View>
   );
 }

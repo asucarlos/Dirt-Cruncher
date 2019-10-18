@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Image, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import {
@@ -18,6 +18,22 @@ import {
 export default DirtCard = ({ data, navigate }) => {
   console.log("dirt card", data);
   const iconSize = 60;
+  const [lists, setLists] = useState(null);
+
+  const updateItem = () => {
+    db.transaction(tx => {
+      tx.executeSql(`select * from items;`, (_, { rows: { _array } }) =>
+        setLists({ lists: _array })
+      );
+    });
+  };
+  useEffect(() => {
+    updateItem;
+  }, []);
+
+  // if (lists === null || lists.length === 0) {
+  //   return null;
+  // }
 
   return (
     <Card>
