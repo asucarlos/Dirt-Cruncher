@@ -3,7 +3,7 @@ import { Modal, Text, View, Alert, StyleSheet } from "react-native";
 import { Button, Form, Item, Input, Textarea, Container, Content } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 
-AddListScreen = ({ submitHandler }) => {
+AddListScreen = ({ addListHandler, inputHandler }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSize, setIconSize] = useState(30);
 
@@ -32,14 +32,14 @@ AddListScreen = ({ submitHandler }) => {
             >
               <AntDesign name="close" size={iconSize} />
             </Button>
-            <Button style={styles.submitButton}>
+            <Button style={styles.submitButton} onPress={addListHandler}>
               <Text>Submit</Text>
             </Button>
             <Text h1 style={styles.formHeader}>
               Add Your Listing
             </Text>
             <Item rounded style={styles.Input}>
-              <Input placeholder="Your Name" />
+              <Input placeholder="Your Name" onChangeText={inputHandler} />
             </Item>
             <Item rounded>
               <Input placeholder="Contact Number" keyboardType="numeric" />
