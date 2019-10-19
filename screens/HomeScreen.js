@@ -9,7 +9,7 @@ import {
   View,
   Text
 } from "react-native";
-import { Container, Content, Button } from "native-base";
+import { Container, Content, Button, Input } from "native-base";
 import { MonoText } from "../components/StyledText";
 import { useNavigation } from "react-navigation-hooks";
 import { SQLite } from "expo-sqlite";
@@ -24,6 +24,7 @@ export default function HomeScreen() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [dirtList, setDirtList] = useState(null);
   const [lists, setLists] = useState(null);
+  const [inputType, setInputType] = useState(null);
   const { navigate } = useNavigation();
 
   getList = () => {
@@ -44,13 +45,8 @@ export default function HomeScreen() {
     });
   }, []);
 
-  const inputHandler = enteredText => {
-    setLists(enteredText);
-    console.log(lists);
-  };
-
-  const addListHandler = () => {
-    console.log(lists);
+  const addListHandler = (name, number, location, type, weight, price, note) => {
+    console.log(name, number, location, type, weight, price, note);
   };
 
   const add = text => {
@@ -79,7 +75,7 @@ export default function HomeScreen() {
             dirtList.map(data => <DirtCard data={data} key={data.id} navigate={navigate} />)}
         </Content>
       </ScrollView>
-      <AddListScreen addListHandler={addListHandler} inputHandler={inputHandler} />
+      <AddListScreen addListHandler={addListHandler} />
     </View>
   );
 }

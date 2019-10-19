@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Text, View, Alert, StyleSheet } from "react-native";
+import { Modal, Text, View, Alert, StyleSheet, TextInput } from "react-native";
 import { Button, Form, Item, Input, Textarea, Container, Content } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 
-AddListScreen = ({ addListHandler, inputHandler }) => {
+AddListScreen = ({ addListHandler }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSize, setIconSize] = useState(30);
+  const [name, setName] = useState(null);
+  const [number, setNumber] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [type, setType] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [note, setNote] = useState(null);
 
   return (
     <View>
@@ -32,31 +39,79 @@ AddListScreen = ({ addListHandler, inputHandler }) => {
             >
               <AntDesign name="close" size={iconSize} />
             </Button>
-            <Button style={styles.submitButton} onPress={addListHandler}>
+            <Button
+              style={styles.submitButton}
+              onPress={() => {
+                addListHandler(name, number, location, type, weight, price, note);
+              }}
+            >
               <Text>Submit</Text>
             </Button>
             <Text h1 style={styles.formHeader}>
               Add Your Listing
             </Text>
             <Item rounded style={styles.Input}>
-              <Input placeholder="Your Name" onChangeText={inputHandler} />
+              <Input
+                placeholder="Your Name"
+                type="text"
+                onChangeText={name => {
+                  setName({ name });
+                }}
+              />
+
+              {/* <Input placeholder="Your Name" onChangeText={inputHandler} onChange={sortType} /> */}
             </Item>
             <Item rounded>
-              <Input placeholder="Contact Number" keyboardType="numeric" />
+              <Input
+                placeholder="Contact Number"
+                keyboardType="numeric"
+                onChangeText={number => {
+                  setNumber({ number });
+                }}
+              />
             </Item>
             <Item rounded>
-              <Input placeholder="Where is the dump?" />
+              <Input
+                placeholder="Where is the dump?"
+                onChangeText={location => {
+                  setLocation({ location });
+                }}
+              />
             </Item>
             <Item rounded style={styles.Input}>
-              <Input placeholder="Soil Type" />
+              <Input
+                placeholder="Soil Type"
+                onChangeText={type => {
+                  setType({ type });
+                }}
+              />
             </Item>
             <Item rounded style={styles.Input}>
-              <Input placeholder="Weight In Tons" keyboardType="numeric" />
+              <Input
+                placeholder="Weight In Tons"
+                keyboardType="numeric"
+                onChangeText={weight => {
+                  setWeight({ weight });
+                }}
+              />
             </Item>
             <Item rounded>
-              <Input placeholder="Enter Price" keyboardType="numeric" />
+              <Input
+                placeholder="Enter Price"
+                keyboardType="numeric"
+                onChangeText={price => {
+                  setPrice({ price });
+                }}
+              />
             </Item>
-            <Textarea rowSpan={5} bordered placeholder="Additional Notes" />
+            <Textarea
+              rowSpan={5}
+              bordered
+              placeholder="Additional Notes"
+              onChangeText={note => {
+                setNote({ note });
+              }}
+            />
           </Form>
         </View>
       </Modal>
