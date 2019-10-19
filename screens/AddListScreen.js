@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Text, View, Alert, StyleSheet, TextInput } from "react-native";
+import { Modal, Text, View, Alert, StyleSheet, TextInput, ScrollView } from "react-native";
 import { Button, Form, Item, Input, Textarea, Container, Content } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -24,7 +24,7 @@ AddListScreen = ({ addListHandler }) => {
           Alert.alert("Modal has been closed.");
         }}
       >
-        <View style={{ marginTop: 22 }}>
+        <ScrollView style={{ marginTop: 22 }}>
           <Form
             model="newList"
             onSubmit={list => {
@@ -42,7 +42,15 @@ AddListScreen = ({ addListHandler }) => {
             <Button
               style={styles.submitButton}
               onPress={() => {
-                addListHandler(name, number, location, type, weight, price, note);
+                addListHandler({
+                  name,
+                  number,
+                  location,
+                  type,
+                  weight,
+                  price,
+                  note
+                });
               }}
             >
               <Text>Submit</Text>
@@ -58,8 +66,6 @@ AddListScreen = ({ addListHandler }) => {
                   setName({ name });
                 }}
               />
-
-              {/* <Input placeholder="Your Name" onChangeText={inputHandler} onChange={sortType} /> */}
             </Item>
             <Item rounded>
               <Input
@@ -113,7 +119,7 @@ AddListScreen = ({ addListHandler }) => {
               }}
             />
           </Form>
-        </View>
+        </ScrollView>
       </Modal>
 
       <Button
@@ -151,7 +157,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3
   },
   Input: {
-    width: 150
+    width: 150,
+    marginVertical: 5
   },
   nameInput: {},
   contactInput: {},
