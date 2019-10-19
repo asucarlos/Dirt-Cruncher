@@ -30,11 +30,6 @@ export default DirtCard = ({ data, navigate }) => {
   useEffect(() => {
     updateItem;
   }, []);
-
-  // if (lists === null || lists.length === 0) {
-  //   return null;
-  // }
-
   return (
     <Card>
       <CardItem cardBody>

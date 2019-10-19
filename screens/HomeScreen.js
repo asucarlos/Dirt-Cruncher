@@ -50,11 +50,6 @@ export default function HomeScreen() {
   };
 
   const add = text => {
-    // // is text empty?
-    // if (text === null || text === "") {
-    //   return false;
-    // }
-
     db.transaction(
       tx => {
         tx.executeSql("insert into items (value) values (0, ?)", [text]);
